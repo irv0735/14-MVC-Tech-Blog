@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-auto">
+    <h2>Welcome, {{user_name}}!</h2>
+  </div>
+</div>
+
+<div class="row mt-4">
+  {{#if blog-entries.length}}
+  <div class="col-md-6 project-list">
+    <h3>Current Posts:</h3>
+
+    {{#each blog-entries as |blog-entry|}}
+      <div class="row mb-4 project">
+          <h2>
+            <a href="/blog-entries/edit/{{blog-entry.id}}">{{blog-entry.title}}</a>
+            <span class="sub-text">Published on: {{format_date blog-entry.date_created}}</span>
+          </h2>
+      </div>
+    {{/each}}
+  </div>
+  {{/if}}
+  <a href="/blog-entry">Create Post</a>
+</div>
+
+
