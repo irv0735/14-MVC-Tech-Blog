@@ -21,17 +21,19 @@ Comment.init(
       defaultValue: DataTypes.NOW,
     },
     entry_id: {
-      type: DataTypes.DATE,
+      type: DataTypes.INTEGER,
       references: {
         model: 'blog-entry',
-        key: 'id'
+        key: 'id',
+        unique: false
       }
     },
     commentor_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'user',
-        key: 'id'
+        key: 'id',
+        unique: false
       },
     },
   },

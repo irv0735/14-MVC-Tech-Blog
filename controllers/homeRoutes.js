@@ -1,25 +1,20 @@
 const router = require('express').Router();
-const { Project, User } = require('../models');
+const { BlogEntry, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
-    // Get all projects and JOIN with user data
-    const projectData = await Project.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-      ],
+    // Get all blog entries and JOIN with user data
+    const blogEntryData = await BlogEntry.findAll({
+      include: [{ model: User }]
     });
-
+    
     // Serialize data so the template can read it
-    const projects = projectData.map((project) => project.get({ plain: true }));
-
+    const blogEntries = blogEntryData.map((blog) => blog.get({ plain: true }));
+    console.log(blogEntries);
     // Pass serialized data and session flag into template
     res.render('homepage', { 
-      projects, 
+      blogEntries, 
       logged_in: req.session.logged_in 
     });
   } catch (err) {
