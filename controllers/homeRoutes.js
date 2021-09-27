@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { BlogEntry, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
+// Home route - renders list of blog posts
 router.get('/', async (req, res) => {
   try {
     const blogEntryData = await BlogEntry.findAll({
@@ -17,6 +18,34 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Dashboard route - renders list of your posts
+router.get('/dashboard', withAuth, async (req, res) => {
+  try {
+    const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password'] },
+      include: [{ model: BlogEntry }],
+    });
+
+    const user = userData.get({ plain: true });
+    res.render('dashboard', {
+      ...user,
+      logged_in: true
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Blog Entry route - renders form to create a new post
+router.get('/blog-entry', withAuth, async (req, res) => {
+  try {
+    res.render('blog-entry');
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Single Blog post route - renders post and all comments
 router.get('/blog-entries/:id', async (req, res) => {
   try {
     const blogData = await BlogEntry.findByPk(req.params.id, {
@@ -54,26 +83,21 @@ router.get('/blog-entries/:id', async (req, res) => {
   }
 });
 
-
-// Use withAuth middleware to prevent access to route
-router.get('/dashboard', withAuth, async (req, res) => {
+// Sinlge post - edit option
+router.get('/blog-entries/edit/:id', async (req, res) => {
   try {
-    // Find the logged in user based on the session ID
-    const userData = await User.findByPk(req.session.user_id, {
-      attributes: { exclude: ['password'] },
-      include: [{ model: BlogEntry }],
-    });
-
-    const user = userData.get({ plain: true });
-    res.render('dashboard', {
-      ...user,
-      logged_in: true
+    const blogData = await BlogEntry.findByPk(req.params.id)
+    const blogPost = blogData.get({ plain: true });
+    
+    res.render('blog-edit', {
+      ...blogPost
     });
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
+// Login route - renders the login page
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
@@ -83,6 +107,7 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
+// Create account route - renders account sign up page
 router.get('/create-account', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
@@ -90,14 +115,6 @@ router.get('/create-account', (req, res) => {
     return;
   }
   res.render('create-account');
-});
-
-router.get('/blog-entry', withAuth, async (req, res) => {
-  try {
-    res.render('blog-entry');
-  } catch (err) {
-    res.status(500).json(err);
-  }
 });
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { BlogEntry, Comment } = require('../../models');
+const { BlogEntry, Comment, User } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 // Add new Blog Post
@@ -14,6 +14,19 @@ router.post('/', withAuth, async (req, res) => {
   } catch (err) {
     res.status(400).json(err);
   }
+});
+
+// Edit existing blog post
+router.put('/:id/edit', withAuth, async (req,res) => {
+  BlogEntry.update(req.body, {
+    where: {
+      id: req.params.id,
+    }
+  })
+  .then((updatedPost) => res.json(updatedPost))
+    .catch((err) => {
+      res.status(500).json(err);
+    });
 });
 
 // Add new comment to existing Blog Post
