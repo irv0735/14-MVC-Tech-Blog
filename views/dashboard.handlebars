@@ -5,15 +5,15 @@
 </div>
 
 <div class="row mt-4">
-  {{#if blog-entries.length}}
+  {{#if blogs.length}}
   <div class="col-md-6 project-list">
     <h3>Current Posts:</h3>
 
-    {{#each blog-entries as |blog-entry|}}
+    {{#each blogs as |blog|}}
       <div class="row mb-4 project">
           <h2>
-            <a href="/blog-entries/edit/{{blog-entry.id}}">{{blog-entry.title}}</a>
-            <span class="sub-text">Published on: {{format_date blog-entry.date_created}}</span>
+            <a href="/blog-entries/edit/{{blog.id}}">{{blog.title}}</a>
+            <span class="sub-text">Published on: {{format_date blog.date_created}}</span>
           </h2>
       </div>
     {{/each}}

@@ -23,7 +23,7 @@ Comment.init(
     entry_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'blog-entry',
+        model: 'blog',
         key: 'id',
         unique: false
       }

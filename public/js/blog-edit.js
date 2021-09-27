@@ -6,7 +6,7 @@ const editFormHandler = async (event) => {
   const content = document.querySelector('#post-content').value.trim();
   
   if (title && content) {
-    const response = await fetch(`/api/blog-entries/${postId[5]}/edit`, {
+    const response = await fetch(`/api/blog-entries/${postId[5]}`, {
       method: 'PUT',
       body: JSON.stringify({ title, content }),
       headers: { 'Content-Type': 'application/json' },
@@ -20,4 +20,17 @@ const editFormHandler = async (event) => {
   }
 };
 
+const deletePost = async (event) => {
+  event.preventDefault();
+  const response = await fetch(`/api/blog-entries/${postId[5]}`, {
+    method: 'DELETE',
+  });
+  if (response.ok) {
+    document.location.replace('/dashboard');
+  } else {
+    alert(response.statusText);
+  }
+};
+
 document.querySelector('.edit-blog-form').addEventListener('submit', editFormHandler);
+document.querySelector('#delete-post').addEventListener('click', deletePost);
