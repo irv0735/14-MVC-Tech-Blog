@@ -17,7 +17,7 @@ router.post('/', withAuth, async (req, res) => {
 });
 
 // Add new comment to existing Blog Post
-router.post('/:id/add-comment', withAuth, async (req, res) => {
+router.post('/:id/comment', withAuth, async (req, res) => {
   try {
     const newComment = await Comment.create({
       ...req.body,
@@ -31,5 +31,22 @@ router.post('/:id/add-comment', withAuth, async (req, res) => {
   }
 });
 
+// Delete comment from Blog Post
+router.delete('/delete-comment', withAuth, async (req, res) => {
+  try {
+    const commentData = await Comment.destroy({
+      where: {
+        id: req.body.id
+      }
+    });
+    if (!commentData) {
+      res.status(404).json({ message: 'No comment found with that id!' });
+      return;
+    }
+    res.status(200).json(commentData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;

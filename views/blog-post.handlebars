@@ -5,9 +5,14 @@
 </div>
 
 {{#each comments as |comment|}}
-<div>
+<div class="single-comment" data-id="{{comment.id}}">
 <p>{{comment.content}}</p>
 <p>By: {{comment.user.user_name}} added on {{format_date comment.date_created}}</p>
+
+{{#if comment.isAuthor}}
+<button id="delete-comment">Delete</button>
+{{/if}} 
+
 </div>
 {{/each}}
 

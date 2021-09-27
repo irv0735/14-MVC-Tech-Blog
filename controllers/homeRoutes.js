@@ -39,9 +39,15 @@ router.get('/blog-entries/:id', async (req, res) => {
     });
 
     const blog = blogData.get({ plain: true });
+    for (let i=0; i<blog.comments.length; i++) {
+      const isMatch = blog.comments[i].commentor_id === req.session.user_id;
+      blog.comments[i].isAuthor = isMatch;
+     };
+
     res.render('blog-post', {
       ...blog,
-      logged_in: req.session.logged_in
+      logged_in: req.session.logged_in,
+      current_user: req.session.user_id
     });
   } catch (err) {
     res.status(500).json(err);
