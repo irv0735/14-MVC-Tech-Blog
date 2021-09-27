@@ -20,9 +20,8 @@ const commentFormHandler = async (event) => {
 };
 
 const deleteHandler = async (commentId) => {
-  const response = await fetch(`/api/blog-entries/delete-comment`, {
-    method: 'DELETE',
-    body: JSON.stringify({id: commentId})
+  const response = await fetch(`/api/blog-entries/delete-comment/${commentId}`, {
+    method: 'DELETE'
   });
   if(response.ok) {
     document.location.reload();
@@ -32,8 +31,12 @@ const deleteHandler = async (commentId) => {
 }
 
 document.querySelector('.new-comment-form').addEventListener('submit', commentFormHandler);
-document.querySelectorAll('#delete-comment').addEventListener('click', function(event) {
-  let selectedComment =  event.target.closest('.single-comment').dataset.id;
-  console.log(selectedComment);
-  deleteHandler(selectedComment);
+
+const commentArray = document.querySelectorAll('#delete-comment')
+commentArray.forEach(function(singleComment) {
+  singleComment.addEventListener('click', function(event) {
+    const targetComment = event.target;
+    const commentId = targetComment.closest('.single-comment').dataset.id;
+    deleteHandler(commentId);
   });
+});
