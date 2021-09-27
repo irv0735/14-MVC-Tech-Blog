@@ -6,15 +6,17 @@
 
 <div class="row mt-4">
   {{#if blogs.length}}
-  <div class="col-md-6 project-list">
+  <div class="col-auto project-list">
     <h3>Current Posts:</h3>
 
     {{#each blogs as |blog|}}
-      <div class="row mb-4 project">
+      <div class="card blog-post">
+        <div class="card-header">
           <h2>
             <a href="/blog-entries/edit/{{blog.id}}">{{blog.title}}</a>
-            <span class="sub-text">Published on: {{format_date blog.date_created}}</span>
           </h2>
+          <p class="sub-text">Published on: {{format_date blog.date_created}}</p>
+        </div>
       </div>
     {{/each}}
   </div>

@@ -1,20 +1,27 @@
-<div class="text-center">
-  <h2>{{title}}</h2>
-  <p>{{content}}</p>
-  <p>Created by {{user.user_name}} on {{format_date date_created}}</p>
+<div class="card blog-post">
+  <div class="card-header">
+    <h2>{{title}}</h2>
+    <p>Created by {{user.user_name}} on {{format_date date_created}}</p>
+  </div>
+  <div class="card-body">
+    <p>{{content}}</p>
+  </div>
 </div>
 
 {{#each comments as |comment|}}
-<div class="single-comment" data-id="{{comment.id}}">
-<p>{{comment.content}}</p>
-<p>By: {{comment.user.user_name}} added on {{format_date comment.date_created}}</p>
-
-{{#if comment.isAuthor}}
-<button id="delete-comment">Delete</button>
-{{/if}} 
-
-</div>
+<div class="card comment">
+  <div class="single-comment card-body" data-id="{{comment.id}}">
+    <p>{{comment.content}}</p>
+  </div>
+  <div class="card-footer">
+    <p>By: {{comment.user.user_name}} added on {{format_date comment.date_created}}</p>
+    {{#if comment.isAuthor}}
+    <button class="btn" id="delete-comment">Delete</button>
+    {{/if}}
+  </div>
+</div> 
 {{/each}}
+
 {{#if logged_in}}
   <div class="col-md-6">
     <form class="form new-comment-form">

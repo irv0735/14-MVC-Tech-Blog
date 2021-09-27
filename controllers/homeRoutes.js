@@ -39,7 +39,9 @@ router.get('/dashboard', withAuth, async (req, res) => {
 // Blog Entry route - renders form to create a new post
 router.get('/blog-entry', withAuth, async (req, res) => {
   try {
-    res.render('blog-entry');
+    res.render('blog-entry', {
+      logged_in: true
+    });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -90,7 +92,8 @@ router.get('/blog-entries/edit/:id', async (req, res) => {
     const blogPost = blogData.get({ plain: true });
     
     res.render('blog-edit', {
-      ...blogPost
+      ...blogPost, 
+      logged_in: true
     });
   } catch (err) {
     res.status(500).json(err);

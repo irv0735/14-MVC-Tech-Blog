@@ -3,6 +3,16 @@
   margin: 1.2rem;
 }
 
+.comment {
+  border-radius: 5px;
+  margin: 1.2rem;
+  width: 80%;
+}
+
+.create-btn {
+  height: 40px;
+}
+
 .create-btn:hover {
   text-decoration: none;
 }
@@ -35,13 +45,4 @@
 
 #main-header {
   background-color: #f3ae9a;
-}
-
-#main-footer {
-  background-color: #f3ae9a;
-  text-align: center;
-  padding-top: 20px;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
 }
