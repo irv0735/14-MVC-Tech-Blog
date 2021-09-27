@@ -1,18 +1,47 @@
-header, .project:not(:last-child) {
-  border-bottom: 1px solid #ccc;
+.blog-post {
+  border-radius: 5px;
+  margin: 1.2rem;
+}
+
+.create-btn:hover {
+  text-decoration: none;
+}
+
+.discreet {
+  font-size: .75rem;
+  color: #02344b;
 }
 
 .no-button {
   background: none;
   border: none;
-  padding: 0;
+  padding: 10px;
+  margin: 15px;
   cursor: pointer;
-  color: #1b89bc;
+  color: #1183b8;
   text-decoration: none;
   font-size: 100%;
+  font-weight: bold;
 }
 
 .no-button:hover {
-  color: #065b83;
+  color: #02344b;
   text-decoration: underline;
+}
+
+.main-title {
+  color:  #c9522e;
+}
+
+#main-header {
+  background-color: #f3ae9a;
+}
+
+#main-footer {
+  background-color: #f3ae9a;
+  text-align: center;
+  padding-top: 20px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }

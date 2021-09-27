@@ -1,17 +1,19 @@
 <!-- Loop over each object in the blogEntries array -->
 {{#each blogEntries as |blogEntry| }}
-<div class="row mb-4 project">
-  <div class="col-md-5">
-    <h2>
-      <a href="/blog-entries/{{blogEntry.id}}">{{blogEntry.title}}</a>
-      <span class="sub-text">Published by {{blogEntry.user.user_name}} on {{format_date blogEntry.date_created}}</span>
-    </h2>
+
+  <div class="card blog-post">
+    <div class="card-header">
+      <h2>
+        <a href="/blog-entries/{{blogEntry.id}}">{{blogEntry.title}}</a>
+      </h2>
+      <p>Published by {{blogEntry.user.user_name}} on {{format_date blogEntry.date_created}}</p>
+    </div>
+    <div class="card-body">
+      <p>
+        {{blogEntry.content}}
+      </p>
+    </div>
   </div>
-  <div class="col-md-7">
-    <p>
-      {{blogEntry.content}}
-    </p>
-  </div>
-</div>
+  
 {{/each}}
 
