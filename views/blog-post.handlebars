@@ -15,7 +15,7 @@
 
 </div>
 {{/each}}
-
+{{#if logged_in}}
   <div class="col-md-6">
     <form class="form new-comment-form">
       <div class="form-group">
@@ -27,5 +27,5 @@
       </div>
     </form>
   </div>
-
+{{/if}}
 <script src="../js/comment.js"></script>
