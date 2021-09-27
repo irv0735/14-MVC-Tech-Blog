@@ -17,27 +17,37 @@ router.get('/', async (req, res) => {
   }
 });
 
-// router.get('/blog-entries/:id', async (req, res) => {
-//   try {
-//     const projectData = await Project.findByPk(req.params.id, {
-//       include: [
-//         {
-//           model: User,
-//           attributes: ['name'],
-//         },
-//       ],
-//     });
+router.get('/blog-entries/:id', async (req, res) => {
+  try {
+    const blogData = await BlogEntry.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          attributes: ['user_name']
+        },
+        {
+          model: Comment,
+          include: [ 
+            {
+              model: User,
+              attributes: ['user_name']
+            },
+          ],
+          attributes: ['id', 'content', 'date_created', 'commentor_id']
+        },
+      ],
+    });
 
-//     const project = projectData.get({ plain: true });
-
-//     res.render('project', {
-//       ...project,
-//       logged_in: req.session.logged_in
-//     });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+    const blog = blogData.get({ plain: true });
+    console.log(blog);
+    res.render('blog-post', {
+      ...blog,
+      logged_in: req.session.logged_in
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 
 // Use withAuth middleware to prevent access to route
