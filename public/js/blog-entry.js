@@ -4,6 +4,7 @@ const entryFormHandler = async (event) => {
   const content = document.querySelector('#post-content').value.trim();
 
   if (title && content) {
+    console.log(title, content);
     const response = await fetch('/api/blog-entries', {
       method: 'POST',
       body: JSON.stringify({ title, content }),

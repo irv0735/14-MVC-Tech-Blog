@@ -9,8 +9,8 @@
 </div>
 
 {{#each comments as |comment|}}
-<div class="card comment">
-  <div class="single-comment card-body" data-id="{{comment.id}}">
+<div class="card comment single-comment" data-id="{{comment.id}}">
+  <div class="card-body">
     <p>{{comment.content}}</p>
   </div>
   <div class="card-footer">
